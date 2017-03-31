@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grey's RPG</title>
+
+
+   	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <!-- Added link to the jQuery Library -->
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+
+
+
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    </head>
+<body >
+
+<h1> Your Characters </h1>
+<section id = "attackerSelect" style = "width: 100%; height: 250px"> 
+<div class = "attacker firstClick" >
+	</div> 
+	<div class = "luke firstClick">	
+	<img src= "http://vignette3.wikia.nocookie.net/starwars/images/1/15/Luke_Skywalker_Ep_7_SWCT.png/revision/latest?cb=20161230081329" style= "width:100px;height: 100px">
+	<p> Name : Luke </p>
+	<p> Attack : 8 </p>
+	<p>HP : 100 </p>
+	</div> 
+	<div class = "obiWan firstClick">
+	<p> Name : Obi-Wan </p>
+	<p> Attack : 12 </p>
+	<p>HP : 120 </p>
+	</div>
+	<div class = "darthSidious firstClick">
+	<p> Name : Darth Sidious </p>
+	<p> Attack : 15 </p>
+	<p>HP : 150 </p>
+	</div>
+	<div class = "darthMaul firstClick">
+	<p> Name : Darth Maul </p>
+	<p> Attack : 15 </p>
+	<p>HP : 160 </p>
+	</div>
+
+</section>
+<h1 style= "clear: left"> Enemies Available To Attack </h1>
+<section id= "defenderSelect" style = "width: 100%; height: 33%">
+	<div class = "lukePossibleDefender secondClick">
+		<p> Name : Luke </p>
+		<p> Attack : 8 </p>
+		<p>HP : 100 </p>
+	</div> 
+	<div class = "obiWanPossibleDefender secondClick">
+		<p> Name : Obi-Wan </p>
+		<p> Attack : 12 </p>
+		<p>HP : 120 </p>
+	</div>
+	<div class = "darthSidiousPossibleDefender secondClick">
+		<p> Name : Darth Sidious </p>
+		<p> Attack : 15 </p>
+		<p>HP : 150 </p>
+	</div>
+	<div class = "darthMaulPossibleDefender secondClick">
+		<p> Name : Darth Maul </p>
+		<p> Attack : 15 </p>
+		<p>HP : 160 </p>
+	</div>
+</section>	
+<section> 
+	<button class="btn btn-primary number attack" style="clear: left;">
+	<h4> Attack </h4>
+	</button>
+</section>
+
+<h1 style="clear: left"> Defender </h1>
+<div id ="defenderPosition" style = "width: 100%; height: 33%">
+<div class ="defender thirdClick">
+	<div class ="lukeDefender thirdClick">
+		<p> Name : Luke </p>
+		<p> Attack : 8 </p>
+		<p>HP : 100 </p>
+	</div> 
+	<div class ="obiWanDefender thirdClick">
+		<p> Name : Obi-Wan </p>
+		<p> Attack : 12 </p>
+		<p>HP : 120 </p>
+	</div>
+	<div class = "darthSidiousDefender thirdClick">
+		<p> Name : Darth Sidious </p>
+		<p> Attack : 15 </p>
+		<p>HP : 150 </p>
+	</div>
+	<div class = "darthMaulDefender thirdClick">
+		<p> Name : Darth Maul </p>
+		<p> Attack : 15 </p>
+		<p>HP : 160 </p>
+	</div>
+</div>
+<div id = "reset" > 
+	<button class = reset> <h4> Reset </4> </button>
+</div>
+
+
+
+</body>
+
+
+<script type="text/javascript">
+
+
+//global variables//
+
+var fightsWon= 0;
+	
+var firstTime = true;
+
+var secondTime = true;
+
+var resetTrigger= false;
+
+var defenderFilled= false;
+
+
+var players = [
+	 luke = {
+	 	name : "Luke Skywalker",
+	 	attack : 8,
+	 	attackIterator: 8,
+	 	healthPoints: 100
+	 	},
+	 obiWan = {
+	 	name : "Obi-Wan Kenobi",
+	 	attack : 12,
+	 	attackIterator: 8,
+	 	healthPoints : 120
+		},
+	 darthSidious = {
+	 	name : "Darth Sidious",
+	 	attack : 15,
+	 	attackIterator: 20,
+	 	healthPoints : 150
+	 	},
+	 darthMaul = {
+	 	name : "Darth Maul",
+	 	attack : 18,
+	 	attackIterator: 25,
+	 	healthPoints : 160
+	 },
+	 localAttacker = {
+	 	name : "shithead",
+	 	attack : 5,
+	 	attackIterator: 5,
+	 	healthPoints: 100
+	 	},
+	 localDefender = {
+	 	name : "bum",
+	 	attack : 5,
+	 	attackIterator: 5,
+	 	healthPoints: 100
+	 	}	
+	 ];
+//prints out players to screen//
+var printPlayers = function()
+{
+	$("div.attacker").hide();
+	$("div.defender").hide();
+	$("div.lukePossibleDefender").hide();
+	$("div.obiWanPossibleDefender").hide();
+	$("div.darthSidiousPossibleDefender").hide();
+	$("div.darthMaulPossibleDefender").hide();
+	$("div.lukeDefender").hide();
+	$("div.obiWanDefender").hide();
+	$("div.darthSidiousDefender").hide();
+	$("div.darthMaulDefender").hide();
+};
+
+var reset = function()
+{
+	if (resetTrigger === true)
+	{
+	$("div.luke").show();
+	$("div.obiWan").show();
+	$("div.darthSidious").show();
+	$("div.darthMaul").show();
+	$("div.attacker").hide();
+	$("div.defender").hide();
+	$("div.lukePossibleDefender").hide();
+	$("div.obiWanPossibleDefender").hide();
+	$("div.darthSidiousPossibleDefender").hide();
+	$("div.darthMaulPossibleDefender").hide();
+	$("div.lukeDefender").hide();
+	$("div.obiWanDefender").hide();
+	$("div.darthSidiousDefender").hide();
+	$("div.darthMaulDefender").hide();
+	firstTime= true;
+	secondTime= true;
+	fightsWon=0;
+}
+};
+
+
+
+
+// // attack function //
+var attack = function(attacker,defender) 
+{
+
+	if (defender.healthPoints >0 && secondTime===false ){
+	defender.healthPoints = defender.healthPoints - attacker.attack;
+	attacker.healthPoints = attacker.healthPoints - defender.attack;
+	attacker.attack= attacker.attack + attacker.attackIterator;
+	$("div.obiWan").hide();
+	$("div.darthSidious").hide();
+	$("div.darthMaul").hide();
+	$("div.obiWanDefender").hide();
+	$("div.darthSidiousDefender").hide();
+	$("div.darthMaulDefender").hide();
+	$("div.attacker").replaceWith("<div class=attacker>" + "<p> Name : " + attacker.name + "</p>" + "<p> Attack : " + attacker.attack + "</p>"+"<p>HP : " + attacker.healthPoints + "</p>"+ "</div>");
+	$("div.defender").replaceWith("<div class=defender>" + "<p> Name : " + defender.name + "</p>" + "<p> Attack : " + defender.attack + "</p>"+"<p>HP : " + defender.healthPoints + "</p>"+ "</div>");
+			 
+
+ if (attacker.healthPoints <= 0 && secondTime===false){
+		$("div.defender").replaceWith ( "<div class= defender><h1>You Lost, Click Reset To Start Again </div>");
+		resetTrigger = true;
+		secondTime= true;
+	} else if (defender.healthPoints <= 0 && secondTime===false)
+		{$("div.defender").replaceWith ("<div class=defender><h5> You won this fight, pick your next opponent then click attack </h5> </div>");
+		secondTime= true;
+		defenderFilled=false;
+		fightsWon++;
+	};
+return secondTime;
+};};
+
+// extract selector value// 
+var clickExtractor= function(localthis)
+{
+var selector = $(localthis);
+};
+
+
+var playerSelect = function(localthis){
+
+
+
+	if ($(localthis).hasClass("luke") && firstTime=== true)
+	{
+	$("div.obiWan").hide();
+		$("div.luke").hide();
+		$("div.darthSidious").hide();
+		$("div.darthMaul").hide();
+		$("div.obiWanPossibleDefender").show();
+		$("div.darthSidiousPossibleDefender").show();
+		$("div.darthMaulPossibleDefender").show();
+		localAttacker = {
+	 	name : "Luke Skywalker",
+	 	attack : 5,
+	 	attackIterator: 5,
+	 	healthPoints: 100
+	 	};
+	 }
+
+	else if ($(localthis).hasClass("obiWan") && firstTime=== true)
+	{	$("div.obiWan").hide();
+		$("div.luke").hide();
+		$("div.darthSidious").hide();
+		$("div.darthMaul").hide();
+		$("div.lukePossibleDefender").show();
+		$("div.darthSidiousPossibleDefender").show();
+		$("div.darthMaulPossibleDefender").show();
+		localAttacker = {
+	 	name : "Obi-Wan Kenobi",
+	 	attack : 8,
+	 	attackIterator: 8,
+	 	healthPoints : 120
+	 	};
+	}
+	else if ($(localthis).hasClass("darthSidious")&& firstTime=== true)
+	{
+	$("div.obiWan").hide();
+		$("div.luke").hide();
+		$("div.darthSidious").hide();
+		$("div.darthMaul").hide();;
+		$("div.lukePossibleDefender").show();
+		$("div.obiWanPossibleDefender").show();
+		$("div.darthMaulPossibleDefender").show();
+		localAttacker = {
+	 	name : "Darth Sidious",
+	 	attack : 20,
+	 	attackIterator: 20,
+	 	healthPoints : 150
+		};
+	}
+	else if ($(localthis).hasClass("darthMaul")&& firstTime=== true)
+	{
+	$("div.obiWan").hide();
+		$("div.luke").hide();
+		$("div.darthSidious").hide();
+		$("div.darthMaul").hide();
+		$("div.lukePossibleDefender").show();
+		$("div.obiWanPossibleDefender").show();
+		$("div.darthSidiousPossibleDefender").show();
+		localAttacker = {
+	 	name : "Darth Maul",
+	 	attack : 25,
+	 	attackIterator: 25,
+	 	healthPoints : 160
+	 };
+	}
+	firstTime=false;
+	return localAttacker;
+	};
+
+	defenderSelect = function(localthis){
+	if ($(localthis).hasClass("lukePossibleDefender") && secondTime=== true)
+	{	$("div.lukePossibleDefender").hide();
+		localDefender = {
+	 	name : "Luke Skywalker",
+	 	attack : 5,
+	 	attackIterator: 5,
+	 	healthPoints: 100};
+	}
+	else if ($(localthis).hasClass("obiWanPossibleDefender") && secondTime=== true)
+	{	$("div.obiWanPossibleDefender").hide();
+		localDefender = {
+	 	name : "Obi-Wan Kenobi",
+	 	attack : 8,
+	 	attackIterator: 8,
+	 	healthPoints : 120
+	 	};
+	}
+	else if ($(localthis).hasClass("darthSidiousPossibleDefender") && secondTime=== true)
+	{	$("div.darthSidiousPossibleDefender").hide();
+		localDefender = {
+	 	name : "Darth Sidious",
+	 	attack : 20,
+	 	attackIterator: 20,
+	 	healthPoints : 150
+	};
+	}
+	else if ($(localthis).hasClass("darthMaulPossibleDefender") && secondTime=== true)
+	{	$("div.darthMaulPossibleDefender").hide();
+		localDefender = {
+	 	name : "Darth Maul",
+	 	attack : 25,
+	 	attackIterator: 25,
+	 	healthPoints : 160
+	 };
+	}
+	secondTime=false;
+	defenderFilled=true;
+	return localDefender;
+
+	};
+//MAIN//
+var attacker = {
+	 	name : "Darth Bung",
+	 	attack : 25,
+	 	attackIterator: 25,
+	 	healthPoints : 160
+	 };
+
+var defender = {
+	 	name : "Darth Happy",
+	 	attack : 25,
+	 	attackIterator: 25,
+	 	healthPoints : 160
+	 }
+
+printPlayers();
+
+console.log(fightsWon);
+
+$("div.firstClick").on("click", function () 
+	{
+	clickExtractor(this);
+ 	attacker = playerSelect(this);
+ 	$("div.attacker").replaceWith("<div class=attacker>" + "<p> Name : " + attacker.name + "</p>" + "<p> Attack : " + attacker.attack + "</p>"+"<p>HP : " + attacker.healthPoints + "</p>"+ "</div>");
+	 $("div.attacker").show();
+	 console.log(fightsWon);
+ 	});
+
+$("div.secondClick").on("click", function () 
+	{
+	clickExtractor(this);
+ 	defender = defenderSelect(this);
+	$("div.defender").replaceWith("<div class=defender>" + "<p> Name : " + defender.name + "</p>" + "<p> Attack : " + defender.attack + "</p>"+"<p>HP : " + defender.healthPoints + "</p>"+ "</div>");
+	$("div.defender").show();
+	console.log(fightsWon);
+ 	});
+
+$("button.attack").on("click", function()
+	{	
+	attack(attacker,defender);
+	console.log(fightsWon);
+	console.log(secondTime);
+	if (fightsWon === 3){$("div.defender").replaceWith ( "<div class=defender><h1>You Really Won, Click Reset To Start Again </div>");
+	 resetTrigger= true;}
+	});
+
+$("button.reset").on("click", function()
+{
+reset();
+initPlayers();
+});
+</script>
+
+</body>
+</html>
