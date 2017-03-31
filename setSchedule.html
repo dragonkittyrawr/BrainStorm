@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BrainStorm Set Schedule</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css"></style>
+   	<link rel="stylesheet" type="text/css" href="assets/css/style.css"></style>
+   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+</head>
+<body class = "container-fluid">
+  <header class = "jumbotron col-lg-10 col-md-10 col-sm-10 col-xs-12 title">
+      <h1> BrainStorm </h1>
+  </header>
+
+  <main class = "row setScheduleMain">
+    <section class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+    <div class="panel-heading">
+              <h3 class="panel-title">Where</h3>
+            </div>
+          <div class="panel-body">
+            <form role="form">
+              <div class="form-group">
+                <label for="userName-input"> Place</label>
+                <input class="form-control" id="userName-input" type="text">
+              </div>
+            </form>
+            </div>
+    </section>
+    <section class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+    <div class="panel-heading">
+              <h3 class="panel-title">From</h3>
+            </div>
+          <div class="panel-body">
+            <form role="form">
+              <div class="form-group">
+                <label for="from-input"> Time</label>
+                <input class="form-control" id="from-input" type="text">
+              </div>
+            </form>
+            </div>
+    </section>
+	<section class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+	<div class="panel-heading">
+              <h3 class="panel-title">Till</h3>
+            </div>
+          <div class="panel-body">
+            <form role="form">
+              <div class="form-group">
+                <label for="till-input"> Time</label>
+                <input class="form-control" id="till-input" type="text">
+              </div>
+            </form>
+            </div>
+    </section>
+    <section class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+		<div class="panel-heading">
+              <h3 class="panel-title">Checked In</h3>
+        </div>
+        <div class="panel-body">
+        	<form role="form">
+              <div class="form-group">
+                <label for="checkedIn-input"> Status</label>
+                <input class="form-control" id="checkedIn-input" type="text">
+              </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+		<div class="panel-heading">
+              <h3 class="panel-title">Buttons</h3>
+            </div>
+          <div class="panel-body">
+  <button class="btn btn-default" id="add-meetUp" type="submit">Check In</button>
+  <button class="btn btn-default" id="add-checkIn" type="submit">Submit</button>
+  <button class="btn btn-default" id="add-form" type="submit"> Add New Event</button>
+            </div>
+    </section>
+  </main>
+</body>
+</html>
